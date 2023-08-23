@@ -1,0 +1,9 @@
+1° PASSO - comando no CMD:► npm create vite@latest (NOME DO PROJETO)
+2° PASSO - dentro da pasta do projeto:► adicionar arquivos (.editorconfig, .eslintrc.josn)
+3° PASSO - comando no CMD:► npx eslint --init (What format config? · JSON) npx eslint .
+4° PASSO - comando no CMD:► npm install --save-dev eslint-plugin-prettier eslint-config-prettier
+5° PASSO - comando no CMD:► npm install --save-dev --save-exact prettier
+6° PASSO - dentro da pasta do proejto:► criar pasta (.vscode e dentro da pasta criar arquivo (settings.JSON))
+7° PASSO - comando no CMD:► npx prettier --write .\src\
+
+VIDEO AULA EM: EBAC MODULO - 29 / AULA - 02
