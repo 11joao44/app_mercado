@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 
 export const SearchStyle = styled.div`
-  padding: 8px 16px;
+  padding: 16px;
   border: 1px solid #000;
   display: flex;
   align-items: center;

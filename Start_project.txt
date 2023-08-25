@@ -7,3 +7,12 @@
 7° PASSO - comando no CMD:► npx prettier --write .\src\
 
 VIDEO AULA EM: EBAC MODULO - 29 / AULA - 02
+
+COMANDO PARA settings.JSON da pasta .vscode
+
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

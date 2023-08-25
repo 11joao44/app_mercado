@@ -1,6 +1,15 @@
+import { useDispatch } from 'react-redux'
+import { open } from '../../list/reducers/cart'
+
 import { InputStyle, AbasStyle, SearchStyle } from './style'
 
 const Search = () => {
+  const dispatch = useDispatch()
+
+  const openCart = () => {
+    dispatch(open())
+  }
+
   return (
     <>
       <SearchStyle>
@@ -25,7 +34,7 @@ const Search = () => {
             alt="plus--v1"
           />
         </InputStyle>
-        <AbasStyle>
+        <AbasStyle onClick={openCart}>
           <img
             src="https://img.icons8.com/cotton/64/shopping-cart--v2.png"
             alt="shopping-cart--v2"

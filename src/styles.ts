@@ -23,6 +23,12 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${color.corSecundaria};
     color: ${color.corText1}
   }
+
+  .container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+  }
 `
 export const Container = styled.div`
   max-width: 1024px;
