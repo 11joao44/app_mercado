@@ -13,7 +13,10 @@ function App() {
       <Header />
       <Container>
         <Search />
-        <Price />
+        <Price product={{
+          id: 0,
+          nome: ''
+        }} />
       </Container>
         <Cart />
     </Provider>
