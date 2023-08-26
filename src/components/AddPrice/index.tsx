@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { add } from '../../list/reducers/cart'
-import { AddPriceStyle, CampoStyle } from './style'
+import { AddPriceStyle, CampoStyle, PriceStyle } from './style'
 import { Produto } from '../../types'
 
 type Props = {
   product: Produto
 }
 
-const Price = ({product}: Props) => {
+const Price = ({ product }: Props) => {
   const dispatch = useDispatch()
 
   const addToCart = () => {
@@ -31,20 +31,27 @@ const Price = ({product}: Props) => {
       <div>
         <AddPriceStyle>
           <CampoStyle>
-            <h3>Produto</h3>
-            <p>Arroz</p>
-            <h3>Unidade</h3>
-            <div>
-              <img onClick={removeUnid} src="https://img.icons8.com/ios/50/minus.png" alt="minus" />
-              <span>{count}</span>
-              <img onClick={addUnid}
-                src="https://img.icons8.com/ios/50/plus--v1.png"
-                alt="plus--v1"
-              />
-            </div>
+            <header>
+              <h3>Produto</h3>
+              <p>Arroz</p>
+            </header>
 
-            <label>Preços</label>
-            <input type="number" />
+            <main>
+              <img
+                onClick={removeUnid}
+                src="https://img.icons8.com/ios/50/minus.png"
+              />
+              <span>{count}</span>
+              <img
+                onClick={addUnid}
+                src="https://img.icons8.com/ios/50/plus--v1.png"
+              />
+            </main>
+
+            <PriceStyle>
+              <label>Preços</label>
+              <input type="number" />
+            </PriceStyle>
             <button onClick={addToCart}>Adicionar ao carrinho</button>
           </CampoStyle>
         </AddPriceStyle>

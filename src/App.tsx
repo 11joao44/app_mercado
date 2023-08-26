@@ -5,6 +5,7 @@ import Cart from './components/Cart'
 import Header from './components/Header'
 import Search from './components/Search'
 import { Container, GlobalStyle } from './styles'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -13,12 +14,15 @@ function App() {
       <Header />
       <Container>
         <Search />
-        <Price product={{
-          id: 0,
-          nome: ''
-        }} />
+        <Price
+          product={{
+            id: 0,
+            nome: ''
+          }}
+        />
       </Container>
-        <Cart />
+      <Cart />
+      <Footer />
     </Provider>
   )
 }

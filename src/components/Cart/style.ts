@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { color } from '../../styles'
 
 export const Modal = styled.div`
   position: fixed;
@@ -7,22 +8,11 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   display: none;
+  z-index: 5;
 
   &.is-open {
     display: flex;
   }
-
-  header {
-    display: flex;
-    justify-content: center;
-
-    h3 {
-      color: #fff;
-      font-size: 40px;
-      margin-top: 48px;
-    }
-  }
-
 `
 
 export const Overlay = styled.div`
@@ -37,30 +27,73 @@ export const Overlay = styled.div`
 `
 
 export const List = styled.div`
-        background-color: #fff;
-        box-shadow: 4px 4px 12px 4px #000000;
-        overflow-y: auto;
-        width: 480px;
-        height: 75vh;
-        margin: 64px auto;
-        padding: 24px;
-        border-radius: 8px;
+  background-color: ${color.corFundo};
+  box-shadow: 0 0 16px 8px #000000;
+  overflow-y: auto;
+  width: 560px;
+  margin: 128px auto;
+  padding: 24px 40px;
+  border-radius: 8px;
 
-        &::-webkit-scrollbar {
-        background-color: #1d1d1d;
-        width: 5px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        }
+  &::-webkit-scrollbar {
+    background-color: #1d1d1d;
+    width: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 
-        &::-webkit-scrollbar-thumb {
-        background-color: #dedede;
-        border-radius: 5px;
-        }
+  &::-webkit-scrollbar-thumb {
+    background-color: #dedede;
+    border-radius: 5px;
+  }
 
+  a {
+    position: sticky;
+    bottom: 0;
+  }
 
-        ul {
-        margin: 32px auto;
-        width: 100%;
-      }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.5
+    ); /* Valor rgba com transparência */
+    backdrop-filter: blur(10px);
+    top: 0;
+    z-index: 1;
+
+    img {
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+    }
+  }
+
+  ul {
+    width: 100%;
+  }
+`
+
+export const Close = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+
+  img {
+    width: 80px;
+  }
+`
+
+export const Total = styled.div`
+  font-size: 24px;
+  margin: 16px 0;
+  text-align: center;
+  color: #000;
+  text-transform: uppercase;
 `

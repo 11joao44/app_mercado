@@ -1,9 +1,9 @@
 import { styled } from 'styled-components'
 
-export const HeaderStyle = styled.header`
+export const FooterStyle = styled.header`
   background-color: rgba(0, 0, 0, 90%);
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   padding: 32px 0;
@@ -13,9 +13,9 @@ export const HeaderStyle = styled.header`
   gap: 16px;
   z-index: 1;
 
-  h2 {
+  p {
     color: #fff;
-    font-size: 32px;
+    font-size: 16px;
     letter-spacing: 2px;
     font-family: 'Satisfy', cursive;
   }

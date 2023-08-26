@@ -1,18 +1,29 @@
-import styled from "styled-components";
+import { color } from './../../styles'
+import styled from 'styled-components'
 
 export const ProductStyle = styled.li`
-      width: 100%;
-      background: #ffffffa7;
-      box-shadow: 5px 5px 8px 1px #00000096;
-      padding: 18px;
-      overflow: hidden;
-      margin: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  width: 100%;
+  background: ${color.corContainer};
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px 2px ${color.corText3};
+  padding: 16px 32px;
+  overflow: hidden;
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  color: ${color.corText3};
 
-      h2 {
-        font-size: 20px;
-        color: #000000;
-      }
+  h4 {
+    border: 1px solid ${color.corText3};
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 `

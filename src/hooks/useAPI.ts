@@ -1,19 +1,24 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export function useAPI<Product>(url: string) {
-  const [data, setData] = useState<Product>()
+interface CartItem {
+  id: number
+  nome: string
+}
+
+export function useAPI() {
+  const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
     axios
-      .get(url)
-      .then((market) => {
-        setData(market.data)
+      .get<CartItem[]>('https://api-mercado.vercel.app/api/produtos')
+      .then((response) => {
+        setItems(response.data)
       })
       .catch((error) => {
-        console.error('Erro na solicitação:', error)
+        console.error('Erro ao obter os itens da API:', error)
       })
-  }, [url])
+  }, [])
 
-  return { data }
+  return items
 }
