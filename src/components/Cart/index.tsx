@@ -36,9 +36,7 @@ const Cart = () => {
           <h2>COMPRAS</h2>
           <img src="https://img.icons8.com/external-soft-fill-juicy-fish/external-cart-ecommerce-soft-fill-soft-fill-juicy-fish-2.png" />
         </header>
-        <ul>
-          <Product />
-        </ul>
+        <ul></ul>
         <a href="#total">
           <img src="https://img.icons8.com/ios-filled/50/circled-chevron-down.png" />
         </a>

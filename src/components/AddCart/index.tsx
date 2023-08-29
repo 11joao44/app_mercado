@@ -1,22 +1,12 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { add } from '../../list/reducers/cart'
 import { AddPriceStyle, CampoStyle, PriceStyle } from './style'
-import { Produto } from '../../types'
+import { useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
-type Props = {
-  product: Produto
-}
-
-const Price = ({ product }: Props) => {
-  const dispatch = useDispatch()
-
-  const addToCart = () => {
-    dispatch(add(product))
-  }
-
+const AddCart = () => {
   const [count, setCount] = useState(0)
+  const { texto } = useSelector((state: RootReducer) => state.filtro)
 
   const addUnid = () => {
     setCount(count + 1)
@@ -33,7 +23,7 @@ const Price = ({ product }: Props) => {
           <CampoStyle>
             <header>
               <h3>Produto</h3>
-              <p>Arroz</p>
+              <p>{texto}</p>
             </header>
 
             <main>
@@ -52,7 +42,7 @@ const Price = ({ product }: Props) => {
               <label>Preços</label>
               <input type="number" />
             </PriceStyle>
-            <button onClick={addToCart}>Adicionar ao carrinho</button>
+            <button>Adicionar ao carrinho</button>
           </CampoStyle>
         </AddPriceStyle>
       </div>
@@ -60,4 +50,4 @@ const Price = ({ product }: Props) => {
   )
 }
 
-export default Price
+export default AddCart

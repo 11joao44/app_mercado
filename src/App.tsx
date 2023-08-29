@@ -1,29 +1,22 @@
-import { Provider } from 'react-redux'
-import Price from './components/AddPrice'
-import { store } from './list'
-import Cart from './components/Cart'
-import Header from './components/Header'
-import Search from './components/Search'
 import { Container, GlobalStyle } from './styles'
 import Footer from './components/Footer'
+import Header from './components/Header'
+import ProductList from './components/ProductList'
+import Search from './components/Search'
+import AddCart from './components/AddCart'
 
 function App() {
   return (
-    <Provider store={store}>
+    <>
       <GlobalStyle />
       <Header />
       <Container>
         <Search />
-        <Price
-          product={{
-            id: 0,
-            nome: ''
-          }}
-        />
+        <AddCart />
+        <ProductList />
       </Container>
-      <Cart />
       <Footer />
-    </Provider>
+    </>
   )
 }
 

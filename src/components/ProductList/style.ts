@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { color } from '../../styles'
+//import { color } from '../../styles'
 
 export const Modal = styled.div`
   position: fixed;
@@ -8,6 +9,7 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   display: none;
+  background-color: red;
   z-index: 5;
 
   &.is-open {
@@ -26,8 +28,8 @@ export const Overlay = styled.div`
   z-index: -1;
 `
 
-export const List = styled.div`
-  background-color: ${color.corFundo};
+export const ListStyle = styled.div`
+  background-color: red;
   box-shadow: 0 0 16px 8px #000000;
   overflow-y: auto;
   width: 560px;
@@ -70,6 +72,21 @@ export const List = styled.div`
 
   ul {
     width: 100%;
+
+    li {
+      width: 100%;
+      background: ${color.corContainer};
+      border-radius: 8px;
+      box-shadow: 2px 4px 8px 2px ${color.corText3};
+      padding: 16px 32px;
+      overflow: hidden;
+      margin: 32px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      color: ${color.corText3};
+    }
   }
 `
 
@@ -82,12 +99,4 @@ export const Close = styled.span`
   img {
     width: 80px;
   }
-`
-
-export const Total = styled.div`
-  font-size: 24px;
-  margin: 16px 0;
-  text-align: center;
-  color: #000;
-  text-transform: uppercase;
 `
