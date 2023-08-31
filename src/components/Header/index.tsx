@@ -1,15 +1,33 @@
-import { HeaderStyle } from './style'
+import { useDispatch, useSelector } from 'react-redux'
+import { AbasStyle, HeaderStyle, Title } from './style'
+import { RootReducer } from '../../store'
+import { openCart, openList } from '../../store/redurcers/lista'
 
 const Header = () => {
+  const dispatch = useDispatch()
+
+  const { produtos } = useSelector((state: RootReducer) => state.lista)
+
+  const openLista = () => {
+    dispatch(openList())
+  }
+  const openCartt = () => {
+    dispatch(openCart())
+  }
   return (
     <HeaderStyle>
-      <h2>ClasseMarket Prestige</h2>
-      <img
-        width="48"
-        height="48"
-        src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/external-market-contact-us-flatart-icons-lineal-color-flatarticons.png"
-        alt="external-market-contact-us-flatart-icons-lineal-color-flatarticons"
-      />
+      <AbasStyle onClick={openLista}>
+        <img src="https://img.icons8.com/ios/ffffff/todo-list--v1.png" />
+      </AbasStyle>
+
+      <Title>
+        <h2>ClasseMarket Prestige</h2>
+      </Title>
+
+      <AbasStyle onClick={openCartt}>
+        <span>{produtos.length}</span>
+        <img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/ffffff/external-cart-traditional-marketing-flatart-icons-solid-flatarticons.png" />
+      </AbasStyle>
     </HeaderStyle>
   )
 }

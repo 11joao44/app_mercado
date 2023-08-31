@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AddPriceStyle, CampoStyle } from './style'
+import { AddPriceStyle, CampoStyle, InputLabel, Titulo } from './style'
 import { RootReducer } from '../../store'
 import { updatePrices, updateUnits } from '../../store/redurcers/lista'
 
@@ -50,17 +50,19 @@ const AddCart = () => {
 
   return (
     <AddPriceStyle>
+      <h2>► Produto Selecionado ◄</h2>
+
       <CampoStyle>
         <ul>
           {availableProducts.map((item) => (
             <li key={item.id}>
+              <Titulo>{item.nome}</Titulo>
               <img src={item.foto} alt={item.nome} />
-              <div>
-                <h3>{item.nome}</h3>
+              <InputLabel>
                 <input
                   type="number"
-                  placeholder="Preço"
                   value={editedData[item.id]?.price || ''}
+                  placeholder="Preço"
                   onChange={(e) =>
                     handleDataChange(
                       item.id,
@@ -71,8 +73,8 @@ const AddCart = () => {
                 />
                 <input
                   type="number"
-                  placeholder="Unidade"
                   value={editedData[item.id]?.unit || ''}
+                  placeholder="Unidade"
                   onChange={(e) =>
                     handleDataChange(
                       item.id,
@@ -81,10 +83,10 @@ const AddCart = () => {
                     )
                   }
                 />
-                <button onClick={() => handleAddToCart(item.id)}>
-                  Enviar para o Carrinho
-                </button>
-              </div>
+              </InputLabel>
+              <button onClick={() => handleAddToCart(item.id)}>
+                Adicionar ao Carrinho
+              </button>
             </li>
           ))}
         </ul>

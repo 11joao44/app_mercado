@@ -9,7 +9,6 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   display: none;
-  background-color: red;
   z-index: 5;
 
   &.is-open {
@@ -29,7 +28,7 @@ export const Overlay = styled.div`
 `
 
 export const ListStyle = styled.div`
-  background-color: red;
+  background-color: ${color.corFundo};
   box-shadow: 0 0 16px 8px #000000;
   overflow-y: auto;
   width: 560px;
@@ -73,7 +72,6 @@ export const ListStyle = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
       font-size: 16px;
       color: ${color.corText3};
       cursor: pointer;
@@ -82,9 +80,10 @@ export const ListStyle = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
+        width: 90%;
+        gap: 32px;
         img {
-          width: 70px;
+          width: 80px;
           height: 60px;
           border-radius: 8px;
         }

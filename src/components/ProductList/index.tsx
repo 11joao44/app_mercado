@@ -2,7 +2,7 @@ import { useAPI } from '../../hooks/useAPI'
 import { ListStyle, Modal, Overlay } from './style'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { close } from '../../store/redurcers/lista'
+import { closeList } from '../../store/redurcers/lista'
 import Product from '../Product'
 import { alteraTexto } from '../../store/redurcers/filtro'
 
@@ -10,11 +10,11 @@ const ProductList = () => {
   const items = useAPI()
   const dispatch = useDispatch()
 
-  const { isOpen } = useSelector((state: RootReducer) => state.lista)
+  const { isOpenList } = useSelector((state: RootReducer) => state.lista)
   const { texto } = useSelector((state: RootReducer) => state.filtro)
 
-  const closeList = () => {
-    dispatch(close())
+  const closeLista = () => {
+    dispatch(closeList())
   }
 
   const filtraProduto = () => {
@@ -28,8 +28,8 @@ const ProductList = () => {
   }
 
   return (
-    <Modal className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={closeList} />
+    <Modal className={isOpenList ? 'is-open' : ''}>
+      <Overlay onClick={closeLista} />
       <ListStyle>
         <input
           type="text"
@@ -42,7 +42,7 @@ const ProductList = () => {
             <li
               key={item.id}
               onClick={() => {
-                closeList()
+                closeLista()
               }}
             >
               <Product

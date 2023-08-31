@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Product } from '../types/types'
 
 type ListState = {
-  isOpen: boolean
+  isOpenList: boolean
+  isOpenCart: boolean
   produtos: Product[]
   editedPrices: { [productId: number]: number }
   editedUnits: { [productId: number]: number }
 }
 
 const initialState: ListState = {
-  isOpen: false,
+  isOpenList: false,
+  isOpenCart: false,
   produtos: [],
   editedPrices: {},
   editedUnits: {}
@@ -30,11 +32,23 @@ const listSlice = createSlice({
         alert('O produto já esta no carrinho')
       }
     },
-    open: (state) => {
-      state.isOpen = true
+    removeItem: (state, action: PayloadAction<number>) => {
+      const productId = action.payload
+      delete state.editedPrices[productId]
+      delete state.editedUnits[productId]
+      state.produtos = state.produtos.filter((item) => item.id !== productId)
     },
-    close: (state) => {
-      state.isOpen = false
+    openList: (state) => {
+      state.isOpenList = true
+    },
+    closeList: (state) => {
+      state.isOpenList = false
+    },
+    openCart: (state) => {
+      state.isOpenCart = true
+    },
+    closeCart: (state) => {
+      state.isOpenCart = false
     },
     updatePrices: (
       state,
@@ -53,6 +67,15 @@ const listSlice = createSlice({
   }
 })
 
-export const { add, open, close, updatePrices, updateUnits } = listSlice.actions
+export const {
+  add,
+  removeItem,
+  openCart,
+  closeCart,
+  openList,
+  closeList,
+  updatePrices,
+  updateUnits
+} = listSlice.actions
 
 export default listSlice.reducer

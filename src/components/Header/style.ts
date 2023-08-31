@@ -3,20 +3,28 @@ import { styled } from 'styled-components'
 export const HeaderStyle = styled.header`
   background-color: rgba(0, 0, 0, 90%);
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  padding: 32px 0;
+  padding: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  z-index: 1;
+  justify-content: space-between;
+`
 
+export const Title = styled.div`
+  text-align: center;
   h2 {
     color: #fff;
-    font-size: 32px;
+    font-size: 18px;
     letter-spacing: 2px;
     font-family: 'Satisfy', cursive;
+  }
+`
+
+export const AbasStyle = styled.div`
+  cursor: pointer;
+
+  img {
+    width: 40px;
+    height: 40px;
   }
 `

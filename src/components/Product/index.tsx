@@ -20,8 +20,8 @@ const Product = ({ id, nome, foto, prod }: Props) => {
     <div onClick={addProduct}>
       <span>{id}</span>
       <div>
-        <img src={foto} />
         <h2>{nome}</h2>
+        <img src={foto} />
       </div>
     </div>
   )

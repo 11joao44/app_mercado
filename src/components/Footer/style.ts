@@ -6,7 +6,7 @@ export const FooterStyle = styled.header`
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 32px 0;
+  padding: 24px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,8 @@ export const FooterStyle = styled.header`
 
   p {
     color: #fff;
-    font-size: 16px;
+    font-size: 12px;
+    text-align: center;
     letter-spacing: 2px;
     font-family: 'Satisfy', cursive;
   }
