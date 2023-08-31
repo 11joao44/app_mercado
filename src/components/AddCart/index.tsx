@@ -1,52 +1,95 @@
 import { useState } from 'react'
-
-import { AddPriceStyle, CampoStyle, PriceStyle } from './style'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { AddPriceStyle, CampoStyle } from './style'
 import { RootReducer } from '../../store'
+import { updatePrices, updateUnits } from '../../store/redurcers/lista'
 
 const AddCart = () => {
-  const [count, setCount] = useState(0)
-  const { texto } = useSelector((state: RootReducer) => state.filtro)
+  const { produtos } = useSelector((state: RootReducer) => state.lista)
+  const dispatch = useDispatch()
 
-  const addUnid = () => {
-    setCount(count + 1)
+  const [editedData, setEditedData] = useState<{
+    [productId: number]: { price: number; unit: number }
+  }>({})
+  const [addedToCart, setAddedToCart] = useState<number[]>([])
+
+  const handleDataChange = (
+    productId: number,
+    newPrice: number,
+    newUnit: number
+  ) => {
+    setEditedData((prevState) => ({
+      ...prevState,
+      [productId]: { price: newPrice, unit: newUnit }
+    }))
   }
 
-  const removeUnid = () => {
-    setCount(count - 1)
+  const handleAddToCart = (productId: number) => {
+    const data = editedData[productId]
+
+    if (data) {
+      // Atualize o preço e as unidades no estado global antes de enviar para o carrinho
+      dispatch(updatePrices({ productId, newPrice: data.price }))
+      dispatch(updateUnits({ productId, newUnits: data.unit }))
+
+      // Adicione o produto à lista de produtos no carrinho
+      setAddedToCart((prevState) => [...prevState, productId])
+
+      // Limpe o estado local para adicionar outro produto
+      setEditedData((prevState) => {
+        const newState = { ...prevState }
+        delete newState[productId]
+        return newState
+      })
+    }
   }
+
+  const availableProducts = produtos.filter(
+    (item) => !addedToCart.includes(item.id)
+  )
 
   return (
-    <>
-      <div>
-        <AddPriceStyle>
-          <CampoStyle>
-            <header>
-              <h3>Produto</h3>
-              <p>{texto}</p>
-            </header>
-
-            <main>
-              <img
-                onClick={removeUnid}
-                src="https://img.icons8.com/ios/50/minus.png"
-              />
-              <span>{count}</span>
-              <img
-                onClick={addUnid}
-                src="https://img.icons8.com/ios/50/plus--v1.png"
-              />
-            </main>
-
-            <PriceStyle>
-              <label>Preços</label>
-              <input type="number" />
-            </PriceStyle>
-            <button>Adicionar ao carrinho</button>
-          </CampoStyle>
-        </AddPriceStyle>
-      </div>
-    </>
+    <AddPriceStyle>
+      <CampoStyle>
+        <ul>
+          {availableProducts.map((item) => (
+            <li key={item.id}>
+              <img src={item.foto} alt={item.nome} />
+              <div>
+                <h3>{item.nome}</h3>
+                <input
+                  type="number"
+                  placeholder="Preço"
+                  value={editedData[item.id]?.price || ''}
+                  onChange={(e) =>
+                    handleDataChange(
+                      item.id,
+                      +e.target.value,
+                      editedData[item.id]?.unit || item.unidade
+                    )
+                  }
+                />
+                <input
+                  type="number"
+                  placeholder="Unidade"
+                  value={editedData[item.id]?.unit || ''}
+                  onChange={(e) =>
+                    handleDataChange(
+                      item.id,
+                      editedData[item.id]?.price || item.preco,
+                      +e.target.value
+                    )
+                  }
+                />
+                <button onClick={() => handleAddToCart(item.id)}>
+                  Enviar para o Carrinho
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </CampoStyle>
+    </AddPriceStyle>
   )
 }
 

@@ -46,12 +46,18 @@ export const AbasStyle = styled.div`
 export const FiltroStyle = styled.div`
   position: absolute;
   top: 40px;
+  display: none;
   width: 100%;
   padding: 16px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 4px 0 #000;
   backdrop-filter: blur(10px);
+
+  &.is-open {
+    display: block;
+  }
+
   span {
     h2 {
       margin-bottom: 8px;

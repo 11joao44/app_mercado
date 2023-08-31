@@ -49,25 +49,14 @@ export const ListStyle = styled.div`
     border-radius: 5px;
   }
 
-  a {
-    position: sticky;
-    bottom: 0;
-  }
-
-  header {
+  input {
+    width: 80%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    backdrop-filter: blur(10px);
-    top: 0;
-    z-index: 1;
-
-    img {
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-    }
+    margin: 0 auto;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
   }
 
   ul {
@@ -84,19 +73,22 @@ export const ListStyle = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       font-size: 16px;
       color: ${color.corText3};
+      cursor: pointer;
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        img {
+          width: 70px;
+          height: 60px;
+          border-radius: 8px;
+        }
+      }
     }
-  }
-`
-
-export const Close = styled.span`
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-
-  img {
-    width: 80px;
   }
 `

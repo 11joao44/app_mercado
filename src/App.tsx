@@ -4,6 +4,7 @@ import Header from './components/Header'
 import ProductList from './components/ProductList'
 import Search from './components/Search'
 import AddCart from './components/AddCart'
+import Cart from './components/Cart'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container>
         <Search />
         <AddCart />
+        <Cart />
         <ProductList />
       </Container>
       <Footer />
