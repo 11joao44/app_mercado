@@ -56,8 +56,8 @@ const AddCart = () => {
         <ul>
           {availableProducts.map((item) => (
             <li key={item.id}>
-              <Titulo>{item.nome}</Titulo>
               <img src={item.foto} alt={item.nome} />
+              <Titulo>{item.nome}</Titulo>
               <InputLabel>
                 <input
                   type="number"

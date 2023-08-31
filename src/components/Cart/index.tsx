@@ -53,22 +53,21 @@ const Cart = () => {
           <S.Header>
             <img
               onClick={closeCartt}
-              src="https://img.icons8.com/ios/left-squared--v1.png"
+              src="https://img.icons8.com/glyph-neue/left-squared.png"
             />
-            <h2>Carrinho de Compras</h2>
-            <a href="#total">TOTAL</a>
+            <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/external-market-foodies-flaticons-lineal-color-flat-icons-4.png" />
+            <a href="#total">
+              <img src="https://img.icons8.com/glyph-neue/left-squared.png" />
+            </a>
           </S.Header>
           {cartItems.map((produto) => (
             <S.Produto key={produto.id}>
               <S.Foto src={produto.foto} />
               <div>
-                <h3>Produto: {produto.nome}</h3>
-                <p>
-                  Preço:
-                  {formataPreco(editedPrices[produto.id] || produto.preco)}
-                </p>
-                <p>Quantidade: {editedUnits[produto.id]} </p>
+                <h3>{produto.nome}</h3>
+                <p>{formataPreco(editedPrices[produto.id] || produto.preco)}</p>
               </div>
+              <p>{editedUnits[produto.id]}x</p>
               <S.Lixeira
                 src="https://img.icons8.com/glyph-neue/delete--v1.png"
                 onClick={() => removeCartItem(produto.id)} // Chamando a função para remover

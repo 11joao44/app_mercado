@@ -22,6 +22,12 @@ export const Title = styled.div`
 
 export const AbasStyle = styled.div`
   cursor: pointer;
+  gap: 8px;
+
+  span {
+    display: block;
+    color: #fff;
+  }
 
   img {
     width: 40px;

@@ -29,10 +29,9 @@ export const Overlay = styled.div`
 export const CartStyle = styled.div`
   background-color: ${color.corFundo};
   box-shadow: 0 0 16px 8px #000000;
+  width: 100%;
   overflow-y: auto;
-  width: 560px;
-  margin: 128px auto;
-  padding: 24px 40px;
+  padding: 32px 8px;
   border-radius: 8px;
 
   &::-webkit-scrollbar {
@@ -54,8 +53,8 @@ export const CartStyle = styled.div`
 
 export const Header = styled.header`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding: 4px 16px;
 
   img {
     width: 40px;
@@ -64,21 +63,18 @@ export const Header = styled.header`
   }
 
   a {
-    text-decoration: none;
-    border: 1px solid #000;
-    border-radius: 8px;
-    padding: 4px 8px;
+    rotate: calc(270deg);
   }
 `
 
 export const Produto = styled.div`
   background-color: ${color.corContainer};
   margin: 32px 0;
-  padding: 16px;
+  padding: 4px 16px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 16px;
   font-size: 18px;
 

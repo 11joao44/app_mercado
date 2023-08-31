@@ -25,8 +25,8 @@ const Header = () => {
       </Title>
 
       <AbasStyle onClick={openCartt}>
-        <span>{produtos.length}</span>
         <img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/ffffff/external-cart-traditional-marketing-flatart-icons-solid-flatarticons.png" />
+        <span>{produtos.length}</span>
       </AbasStyle>
     </HeaderStyle>
   )
