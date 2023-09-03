@@ -2,9 +2,9 @@ import { useAPI } from '../../hooks/useAPI'
 import { ListStyle, Modal, Overlay } from './style'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { closeList } from '../../store/redurcers/lista'
+import { closeList } from '../../store/reducers/lista'
 import Product from '../Product'
-import { alteraTexto } from '../../store/redurcers/filtro'
+import { alteraTexto } from '../../store/reducers/filtro'
 
 const ProductList = () => {
   const items = useAPI()
@@ -18,8 +18,12 @@ const ProductList = () => {
   }
 
   const filtraProduto = () => {
-    return items.filter(
-      (item) => item.nome.toLowerCase().search(texto.toLowerCase()) >= 0
+    if (!items) {
+      return []
+    }
+
+    return items.filter((item) =>
+      item.nome.toLowerCase().includes(texto.toLowerCase())
     )
   }
 

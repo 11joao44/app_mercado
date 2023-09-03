@@ -1,64 +1,74 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AddPriceStyle, CampoStyle, InputLabel, Titulo } from './style'
+import * as S from './style'
 import { RootReducer } from '../../store'
-import { updatePrices, updateUnits } from '../../store/redurcers/lista'
+import { removeItem, openList, openCart } from '../../store/reducers/lista' // Corrija a importação para 'reducers' em vez de 'redurcers'
+import Button from '../Button'
+
+import * as C from '../../store/reducers/cart'
 
 const AddCart = () => {
+  const { editedData } = useSelector((state: RootReducer) => state.cart)
   const { produtos } = useSelector((state: RootReducer) => state.lista)
   const dispatch = useDispatch()
-
-  const [editedData, setEditedData] = useState<{
-    [productId: number]: { price: number; unit: number }
-  }>({})
-  const [addedToCart, setAddedToCart] = useState<number[]>([])
 
   const handleDataChange = (
     productId: number,
     newPrice: number,
     newUnit: number
   ) => {
-    setEditedData((prevState) => ({
-      ...prevState,
-      [productId]: { price: newPrice, unit: newUnit }
-    }))
+    // Atualize o Redux para refletir as mudanças
+    dispatch(C.addToEditedData({ productId, price: newPrice, unit: newUnit }))
+  }
+
+  const removeCartItem = (productId: number) => {
+    dispatch(removeItem(productId))
+  }
+
+  const cancelItem = (productId: number) => {
+    dispatch(C.removeFromCart(productId))
+    dispatch(C.removeFromEditedData(productId))
   }
 
   const handleAddToCart = (productId: number) => {
     const data = editedData[productId]
 
     if (data) {
-      // Atualize o preço e as unidades no estado global antes de enviar para o carrinho
-      dispatch(updatePrices({ productId, newPrice: data.price }))
-      dispatch(updateUnits({ productId, newUnits: data.unit }))
-
-      // Adicione o produto à lista de produtos no carrinho
-      setAddedToCart((prevState) => [...prevState, productId])
-
-      // Limpe o estado local para adicionar outro produto
-      setEditedData((prevState) => {
-        const newState = { ...prevState }
-        delete newState[productId]
-        return newState
-      })
+      dispatch(C.addToCart(productId))
     }
   }
 
-  const availableProducts = produtos.filter(
-    (item) => !addedToCart.includes(item.id)
-  )
+  const openLista = () => {
+    dispatch(openList())
+  }
+  const openCartt = () => {
+    dispatch(openCart())
+  }
 
   return (
-    <AddPriceStyle>
-      <h2>► Produto Selecionado ◄</h2>
-
-      <CampoStyle>
+    <S.AddPriceStyle>
+      <S.CampoStyle>
+        {produtos.length === 0 ? (
+          <S.ButtonDiv>
+            <S.Form>
+              <h2>Adicionar Novo Produto</h2>
+              <form>
+                <S.InputLabelAdd>
+                  <label>Nome do Produto</label>
+                  <input type="text" required />
+                </S.InputLabelAdd>
+                <button type="submit">Adicionar Produto</button>
+              </form>
+            </S.Form>
+            <Button onClick={openLista} texto="Lista de compras" />
+            <Button onClick={openCartt} texto="Carrinho de compras" />
+          </S.ButtonDiv>
+        ) : null}
         <ul>
-          {availableProducts.map((item) => (
+          {produtos.map((item) => (
             <li key={item.id}>
-              <img src={item.foto} alt={item.nome} />
-              <Titulo>{item.nome}</Titulo>
-              <InputLabel>
+              <S.Capa src={item.foto} alt={item.nome} />
+              <S.Titulo>{item.nome}</S.Titulo>
+              <S.InputLabel>
                 <input
                   type="number"
                   value={editedData[item.id]?.price || ''}
@@ -83,15 +93,28 @@ const AddCart = () => {
                     )
                   }
                 />
-              </InputLabel>
-              <button onClick={() => handleAddToCart(item.id)}>
-                Adicionar ao Carrinho
-              </button>
+              </S.InputLabel>
+              <S.Opcao>
+                <img
+                  src="https://img.icons8.com/48/metro/ok.png"
+                  onClick={() => {
+                    handleAddToCart(item.id)
+                    removeCartItem(item.id)
+                  }}
+                />
+                <img
+                  onClick={() => {
+                    cancelItem(item.id)
+                    removeCartItem(item.id)
+                  }}
+                  src="https://img.icons8.com/48/metro/cancel.png"
+                />
+              </S.Opcao>
             </li>
           ))}
         </ul>
-      </CampoStyle>
-    </AddPriceStyle>
+      </S.CampoStyle>
+    </S.AddPriceStyle>
   )
 }
 

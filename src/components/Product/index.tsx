@@ -1,6 +1,7 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Product } from '../../store/types/types'
-import { add } from '../../store/redurcers/lista'
+import { add } from '../../store/reducers/lista'
+import { RootReducer } from '../../store'
 
 type Props = {
   id: number
@@ -12,8 +13,14 @@ type Props = {
 const Product = ({ id, nome, foto, prod }: Props) => {
   const dispatch = useDispatch()
 
+  const { addedToCart } = useSelector((state: RootReducer) => state.cart)
+
   const addProduct = () => {
-    dispatch(add(prod))
+    if (addedToCart.includes(id)) {
+      alert('O produto já está no carrinho')
+    } else {
+      dispatch(add(prod))
+    }
   }
 
   return (

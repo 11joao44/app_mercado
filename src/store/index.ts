@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import listaReducer from './redurcers/lista'
-import filtroReducer from './redurcers/filtro'
+import listaReducer from './reducers/lista'
+import filtroReducer from './reducers/filtro'
+import cartReducer from './reducers/cart'
 
 export const store = configureStore({
   reducer: {
     lista: listaReducer,
+    cart: cartReducer,
     filtro: filtroReducer
   }
 })

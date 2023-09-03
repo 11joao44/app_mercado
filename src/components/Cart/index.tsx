@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import * as S from './style'
 import { useAPI } from '../../hooks/useAPI'
-import { closeCart, removeItem } from '../../store/redurcers/lista'
+import { closeCart } from '../../store/reducers/lista'
+import { removeFromCart, removeFromEditedData } from '../../store/reducers/cart'
 
 const Cart = () => {
   const items = useAPI()
@@ -10,19 +11,19 @@ const Cart = () => {
 
   const { isOpenCart } = useSelector((state: RootReducer) => state.lista)
 
-  const editedPrices = useSelector(
-    (state: RootReducer) => state.lista.editedPrices
-  )
-
-  const editedUnits = useSelector(
-    (state: RootReducer) => state.lista.editedUnits
+  // Acessar o estado do componente AddCart
+  const { editedData } = useSelector((state: RootReducer) => state.cart)
+  const addedToCart = useSelector(
+    (state: RootReducer) => state.cart.addedToCart
   )
 
   // Filtrar apenas os produtos que foram adicionados ao carrinho
-  const cartItems = items.filter(
-    (produto) => editedUnits[produto.id] !== undefined
-  )
+  const cartItems = items.filter((produto) => addedToCart.includes(produto.id))
 
+  const removeCartItem = (productId: number) => {
+    dispatch(removeFromCart(productId))
+    dispatch(removeFromEditedData(productId))
+  }
   const formataPreco = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -32,17 +33,13 @@ const Cart = () => {
 
   // Calcular o valor total da compra
   const total = cartItems.reduce((acc, produto) => {
-    const price = editedPrices[produto.id] || produto.preco
-    const unit = editedUnits[produto.id]
+    const price = editedData[produto.id]?.price || produto.preco
+    const unit = editedData[produto.id]?.unit || 1
     return acc + price * unit
   }, 0)
 
   const closeCartt = () => {
     dispatch(closeCart())
-  }
-
-  const removeCartItem = (productId: number) => {
-    dispatch(removeItem(productId))
   }
 
   return (
@@ -65,9 +62,11 @@ const Cart = () => {
               <S.Foto src={produto.foto} />
               <div>
                 <h3>{produto.nome}</h3>
-                <p>{formataPreco(editedPrices[produto.id] || produto.preco)}</p>
+                <p>
+                  {formataPreco(editedData[produto.id]?.price || produto.preco)}
+                </p>
               </div>
-              <p>{editedUnits[produto.id]}x</p>
+              <p>{editedData[produto.id]?.unit || 1}x</p>
               <S.Lixeira
                 src="https://img.icons8.com/glyph-neue/delete--v1.png"
                 onClick={() => removeCartItem(produto.id)} // Chamando a função para remover

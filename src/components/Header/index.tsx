@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { AbasStyle, HeaderStyle, Title } from './style'
 import { RootReducer } from '../../store'
-import { openCart, openList } from '../../store/redurcers/lista'
+import { openCart, openList } from '../../store/reducers/lista'
 
 const Header = () => {
   const dispatch = useDispatch()

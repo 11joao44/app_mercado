@@ -29,6 +29,5 @@ export const Container = styled.div`
   max-width: 1024px;
   width: 100%;
   margin: 0 auto;
-  height: 100vh;
   box-shadow: 0 0 32px 8px ${color.corText3};
 `
