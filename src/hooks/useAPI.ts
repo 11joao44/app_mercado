@@ -18,3 +18,23 @@ export function useAPI() {
 
   return items
 }
+
+export function postAPI() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [items, setItems] = useState<Product[]>([])
+
+  const addProduct = async (newProduct: Product) => {
+    try {
+      const response = await axios.post<Product>(
+        'https://api-mercado.vercel.app/api/produtos',
+        newProduct
+      )
+      // Adicionar o novo produto à lista após a adição bem-sucedida
+      setItems([...items, response.data])
+    } catch (error) {
+      console.error('Erro ao adicionar o produto:', error)
+    }
+  }
+
+  return { addProduct } // Retorne a função addProduct dentro de um objeto
+}

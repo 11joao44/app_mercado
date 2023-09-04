@@ -5,11 +5,23 @@ import { removeItem, openList, openCart } from '../../store/reducers/lista' // C
 import Button from '../Button'
 
 import * as C from '../../store/reducers/cart'
+import { postAPI } from '../../hooks/useAPI'
+import { useState } from 'react'
+import { Product } from '../../store/types/types'
 
 const AddCart = () => {
   const { editedData } = useSelector((state: RootReducer) => state.cart)
   const { produtos } = useSelector((state: RootReducer) => state.lista)
   const dispatch = useDispatch()
+  const { addProduct } = postAPI()
+
+  const [newProduct, setNewProduct] = useState<Product>({
+    id: 200,
+    nome: '',
+    foto: '',
+    preco: 0,
+    unidade: 0
+  })
 
   const handleDataChange = (
     productId: number,
@@ -44,6 +56,25 @@ const AddCart = () => {
     dispatch(openCart())
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try {
+      await addProduct(newProduct)
+
+      // Limpe o estado após a adição bem-sucedida
+      setNewProduct({
+        id: 200,
+        nome: '',
+        foto: '',
+        preco: 0,
+        unidade: 0
+      })
+    } catch (error) {
+      console.error('Erro ao adicionar o produto:', error)
+    }
+  }
+
   return (
     <S.AddPriceStyle>
       <S.CampoStyle>
@@ -51,10 +82,44 @@ const AddCart = () => {
           <S.ButtonDiv>
             <S.Form>
               <h2>Adicionar Novo Produto</h2>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <S.InputLabelAdd>
-                  <label>Nome do Produto</label>
-                  <input type="text" required />
+                  <input
+                    type="text"
+                    value={newProduct.nome}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, nome: e.target.value })
+                    }
+                    placeholder="Nome do Produto"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={newProduct.foto}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, foto: e.target.value })
+                    }
+                    placeholder="Foto do Produto"
+                    required
+                  />
+                  <input
+                    type="number"
+                    value={newProduct.preco}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, preco: +e.target.value })
+                    }
+                    placeholder="Preço do Produto"
+                    required
+                  />
+                  <input
+                    type="number"
+                    value={newProduct.unidade}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, unidade: +e.target.value })
+                    }
+                    placeholder="Unidade do Produto"
+                    required
+                  />
                 </S.InputLabelAdd>
                 <button type="submit">Adicionar Produto</button>
               </form>
