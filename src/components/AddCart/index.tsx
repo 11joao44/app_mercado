@@ -5,7 +5,7 @@ import { removeItem, openList, openCart } from '../../store/reducers/lista' // C
 import Button from '../Button'
 
 import * as C from '../../store/reducers/cart'
-import { postAPI } from '../../hooks/useAPI'
+import axios from 'axios'
 import { useState } from 'react'
 import { Product } from '../../store/types/types'
 
@@ -13,7 +13,6 @@ const AddCart = () => {
   const { editedData } = useSelector((state: RootReducer) => state.cart)
   const { produtos } = useSelector((state: RootReducer) => state.lista)
   const dispatch = useDispatch()
-  const { addProduct } = postAPI()
 
   const [newProduct, setNewProduct] = useState<Product>({
     id: 200,
@@ -60,16 +59,20 @@ const AddCart = () => {
     e.preventDefault()
 
     try {
-      await addProduct(newProduct)
+      // Enviar os dados do novo produto para a API
+      const response = await axios.post('/api/produtos', newProduct)
+      console.log('Produto adicionado com sucesso:', response.data)
 
-      // Limpe o estado após a adição bem-sucedida
+      // Limpar o estado após a adição bem-sucedida
       setNewProduct({
-        id: 200,
+        id: 0,
         nome: '',
         foto: '',
         preco: 0,
         unidade: 0
       })
+
+      // Você pode atualizar a lista de produtos após a adição bem-sucedida, se necessário
     } catch (error) {
       console.error('Erro ao adicionar o produto:', error)
     }
