@@ -60,7 +60,10 @@ const AddCart = () => {
 
     try {
       // Enviar os dados do novo produto para a API
-      const response = await axios.post('/api/produtos', newProduct)
+      const response = await axios.post(
+        'https://api-mercado.vercel.app/api/produtos',
+        newProduct
+      )
       console.log('Produto adicionado com sucesso:', response.data)
 
       // Limpar o estado após a adição bem-sucedida
