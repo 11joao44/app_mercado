@@ -3,7 +3,12 @@ import { RootReducer } from '../../store'
 import * as S from './style'
 import { useAPI } from '../../hooks/useAPI'
 import { closeCart } from '../../store/reducers/lista'
-import { removeFromCart, removeFromEditedData } from '../../store/reducers/cart'
+import {
+  addToCart,
+  removeFromCart,
+  removeFromEditedData
+} from '../../store/reducers/cart'
+import { useEffect } from 'react'
 
 const Cart = () => {
   const items = useAPI()
@@ -17,6 +22,20 @@ const Cart = () => {
     (state: RootReducer) => state.cart.addedToCart
   )
 
+  // Recuperar os itens do carrinho do localStorage ao montar o componente
+  useEffect(() => {
+    const cartItemsFromLocalStorage = localStorage.getItem('cartItems')
+    if (cartItemsFromLocalStorage !== null) {
+      const parsedCartItems = JSON.parse(cartItemsFromLocalStorage)
+      dispatch(addToCart(parsedCartItems))
+    }
+  }, [dispatch])
+
+  // Atualizar o localStorage sempre que o carrinho for modificado
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(addedToCart))
+  }, [addedToCart])
+
   // Filtrar apenas os produtos que foram adicionados ao carrinho
   const cartItems = items.filter((produto) => addedToCart.includes(produto.id))
 
@@ -24,6 +43,7 @@ const Cart = () => {
     dispatch(removeFromCart(productId))
     dispatch(removeFromEditedData(productId))
   }
+
   const formataPreco = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -41,7 +61,6 @@ const Cart = () => {
   const closeCartt = () => {
     dispatch(closeCart())
   }
-
   return (
     <>
       <S.Modal className={isOpenCart ? 'is-open' : ''}>

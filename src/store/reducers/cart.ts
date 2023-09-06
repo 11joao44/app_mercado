@@ -30,10 +30,16 @@ const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload
       state.addedToCart.push(productId)
+
+      // Salvar no localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.addedToCart))
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload
       state.addedToCart = state.addedToCart.filter((id) => id !== productId)
+
+      // Atualizar o localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.addedToCart))
     }
   }
 })

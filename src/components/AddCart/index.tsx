@@ -29,6 +29,11 @@ const AddCart = () => {
   ) => {
     // Atualize o Redux para refletir as mudanças
     dispatch(C.addToEditedData({ productId, price: newPrice, unit: newUnit }))
+
+    // Atualize o localStorage para persistir as mudanças
+    const updatedEditedData = { ...editedData }
+    updatedEditedData[productId] = { price: newPrice, unit: newUnit }
+    localStorage.setItem('editedData', JSON.stringify(updatedEditedData))
   }
 
   const removeCartItem = (productId: number) => {
