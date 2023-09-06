@@ -36,5 +36,20 @@ export function postAPI() {
     }
   }
 
-  return { addProduct } // Retorne a função addProduct dentro de um objeto
+  // Função para enviar o carrinho de compras para a API
+  const postCartToAPI = async (cartItems: Product[]) => {
+    try {
+      const response = await axios.post(
+        'https://api-mercado.vercel.app/api/historico_compras',
+        cartItems
+      )
+      // Você pode adicionar tratamento de resposta aqui, se necessário
+      return response.data
+    } catch (error) {
+      console.error('Erro ao enviar o carrinho de compras:', error)
+      throw error
+    }
+  }
+
+  return { addProduct, postCartToAPI } // Retorne a função addProduct dentro de um objeto
 }

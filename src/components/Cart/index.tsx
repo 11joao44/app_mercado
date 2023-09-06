@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import * as S from './style'
-import { useAPI } from '../../hooks/useAPI'
+import { postAPI, useAPI } from '../../hooks/useAPI'
 import { closeCart } from '../../store/reducers/lista'
 import {
   addToCart,
@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 const Cart = () => {
   const items = useAPI()
   const dispatch = useDispatch()
+  const { postCartToAPI } = postAPI()
 
   const { isOpenCart } = useSelector((state: RootReducer) => state.lista)
 
@@ -61,6 +62,17 @@ const Cart = () => {
   const closeCartt = () => {
     dispatch(closeCart())
   }
+
+  const finalizePurchase = async () => {
+    // Enviar o carrinho de compras para a API
+    try {
+      await postCartToAPI(cartItems)
+      // Limpar o carrinho de compras após a compra bem-sucedida
+    } catch (error) {
+      console.error('Erro ao finalizar a compra:', error)
+    }
+  }
+
   return (
     <>
       <S.Modal className={isOpenCart ? 'is-open' : ''}>
@@ -93,6 +105,7 @@ const Cart = () => {
             </S.Produto>
           ))}
           <S.Total id="total">Total da Compra: {formataPreco(total)}</S.Total>
+          <button onClick={finalizePurchase}></button>
         </S.CartStyle>
       </S.Modal>
     </>
