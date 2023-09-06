@@ -105,7 +105,7 @@ const Cart = () => {
             </S.Produto>
           ))}
           <S.Total id="total">Total da Compra: {formataPreco(total)}</S.Total>
-          <button onClick={finalizePurchase}></button>
+          <button onClick={finalizePurchase}>Finalizar compra</button>
         </S.CartStyle>
       </S.Modal>
     </>
