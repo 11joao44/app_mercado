@@ -1,19 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import * as S from './style'
-import { postAPI, useAPI } from '../../hooks/useAPI'
+import { useAPI } from '../../hooks/useAPI'
 import { closeCart } from '../../store/reducers/lista'
-import {
-  addToCart,
-  removeFromCart,
-  removeFromEditedData
-} from '../../store/reducers/cart'
-import { useEffect } from 'react'
+import { removeFromCart, removeFromEditedData } from '../../store/reducers/cart'
 
 const Cart = () => {
   const items = useAPI()
   const dispatch = useDispatch()
-  const { postCartToAPI } = postAPI()
 
   const { isOpenCart } = useSelector((state: RootReducer) => state.lista)
 
@@ -22,20 +16,6 @@ const Cart = () => {
   const addedToCart = useSelector(
     (state: RootReducer) => state.cart.addedToCart
   )
-
-  // Recuperar os itens do carrinho do localStorage ao montar o componente
-  useEffect(() => {
-    const cartItemsFromLocalStorage = localStorage.getItem('cartItems')
-    if (cartItemsFromLocalStorage !== null) {
-      const parsedCartItems = JSON.parse(cartItemsFromLocalStorage)
-      dispatch(addToCart(parsedCartItems))
-    }
-  }, [dispatch])
-
-  // Atualizar o localStorage sempre que o carrinho for modificado
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(addedToCart))
-  }, [addedToCart])
 
   // Filtrar apenas os produtos que foram adicionados ao carrinho
   const cartItems = items.filter((produto) => addedToCart.includes(produto.id))
@@ -62,17 +42,6 @@ const Cart = () => {
   const closeCartt = () => {
     dispatch(closeCart())
   }
-
-  const finalizePurchase = async () => {
-    // Enviar o carrinho de compras para a API
-    try {
-      await postCartToAPI(cartItems)
-      // Limpar o carrinho de compras após a compra bem-sucedida
-    } catch (error) {
-      console.error('Erro ao finalizar a compra:', error)
-    }
-  }
-
   return (
     <>
       <S.Modal className={isOpenCart ? 'is-open' : ''}>
@@ -105,7 +74,6 @@ const Cart = () => {
             </S.Produto>
           ))}
           <S.Total id="total">Total da Compra: {formataPreco(total)}</S.Total>
-          <button onClick={finalizePurchase}>Finalizar compra</button>
         </S.CartStyle>
       </S.Modal>
     </>

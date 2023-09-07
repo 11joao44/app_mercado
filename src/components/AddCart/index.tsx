@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux'
-import * as S from './style'
-import { RootReducer } from '../../store'
-import { removeItem, openList, openCart } from '../../store/reducers/lista' // Corrija a importação para 'reducers' em vez de 'redurcers'
-import Button from '../Button'
-
-import * as C from '../../store/reducers/cart'
 import axios from 'axios'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import * as S from './style'
+import Button from '../Button'
+import { RootReducer } from '../../store'
+import * as C from '../../store/reducers/cart'
 import { Product } from '../../store/types/types'
+import { removeItem, openList, openCart } from '../../store/reducers/lista' // Corrija a importação para 'reducers' em vez de 'redurcers'
 
 const AddCart = () => {
   const { editedData } = useSelector((state: RootReducer) => state.cart)
@@ -15,12 +15,28 @@ const AddCart = () => {
   const dispatch = useDispatch()
 
   const [newProduct, setNewProduct] = useState<Product>({
-    id: 200,
+    id: 0,
     nome: '',
     foto: '',
     preco: 0,
     unidade: 0
   })
+
+  const adicionar = () => {
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      unidade: prevProduct.unidade + 1
+    }))
+  }
+
+  const remover = () => {
+    if (newProduct.unidade > 0) {
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        unidade: prevProduct.unidade - 1
+      }))
+    }
+  }
 
   const handleDataChange = (
     productId: number,
@@ -86,6 +102,30 @@ const AddCart = () => {
     }
   }
 
+  const formatPriceForDisplay = (price: number): string => {
+    // Formate o preço como desejado para exibição
+    return price.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })
+  }
+
+  const handlePriceInputChange = (event: { target: { value: string } }) => {
+    const numericValue =
+      parseFloat(event.target.value.replace(/[^\d]/g, '')) / 100
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      preco: numericValue // Mantenha o preço como número
+    }))
+  }
+
+  const handleUnitChange = (productId: number, newUnit: number) => {
+    // Verificar se a nova unidade é válida (maior ou igual a 0)
+    if (newUnit >= 0) {
+      handleDataChange(productId, editedData[productId]?.price || 0, newUnit)
+    }
+  }
+
   return (
     <S.AddPriceStyle>
       <S.CampoStyle>
@@ -104,33 +144,32 @@ const AddCart = () => {
                     placeholder="Nome do Produto"
                     required
                   />
-                  <input
-                    type="text"
-                    value={newProduct.foto}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, foto: e.target.value })
-                    }
-                    placeholder="Foto do Produto"
-                    required
-                  />
-                  <input
-                    type="number"
-                    value={newProduct.preco}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, preco: +e.target.value })
-                    }
-                    placeholder="Preço do Produto"
-                    required
-                  />
-                  <input
-                    type="number"
-                    value={newProduct.unidade}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, unidade: +e.target.value })
-                    }
-                    placeholder="Unidade do Produto"
-                    required
-                  />
+                  <S.InputMoney>
+                    <span>R$:</span>
+                    <input
+                      type="text"
+                      value={formatPriceForDisplay(newProduct.preco)}
+                      onChange={handlePriceInputChange}
+                      placeholder="Preço do Produto"
+                      required
+                    />
+                  </S.InputMoney>
+                  <S.InputCount>
+                    <span onClick={remover}>-</span>
+                    <input
+                      type="number"
+                      value={newProduct.unidade}
+                      onChange={(e) =>
+                        setNewProduct({
+                          ...newProduct,
+                          unidade: +e.target.value
+                        })
+                      }
+                      placeholder="Unidade do Produto"
+                      required
+                    />
+                    <span onClick={adicionar}>+</span>
+                  </S.InputCount>
                 </S.InputLabelAdd>
                 <button type="submit">Adicionar Produto</button>
               </form>
@@ -145,31 +184,62 @@ const AddCart = () => {
               <S.Capa src={item.foto} alt={item.nome} />
               <S.Titulo>{item.nome}</S.Titulo>
               <S.InputLabel>
-                <input
-                  type="number"
-                  value={editedData[item.id]?.price || ''}
-                  placeholder="Preço"
-                  onChange={(e) =>
-                    handleDataChange(
-                      item.id,
-                      +e.target.value,
-                      editedData[item.id]?.unit || item.unidade
-                    )
-                  }
-                />
-                <input
-                  type="number"
-                  value={editedData[item.id]?.unit || ''}
-                  placeholder="Unidade"
-                  onChange={(e) =>
-                    handleDataChange(
-                      item.id,
-                      editedData[item.id]?.price || item.preco,
-                      +e.target.value
-                    )
-                  }
-                />
+                <S.InputMoneyCart>
+                  <span>R$:</span>
+                  <input
+                    type="text"
+                    value={formatPriceForDisplay(
+                      editedData[item.id]?.price || 0
+                    )}
+                    placeholder="Preço do Produto"
+                    required
+                    onChange={(e) => {
+                      // Aqui, você pode tratar a entrada do usuário e atualizar o estado conforme necessário
+                      // Por exemplo, você pode remover vírgulas e pontos e converter para um número
+                      const numericValue =
+                        parseFloat(e.target.value.replace(/[^\d]/g, '')) / 100
+
+                      // Em seguida, você pode atualizar o estado conforme necessário
+                      handleDataChange(
+                        item.id,
+                        numericValue,
+                        editedData[item.id]?.unit || 0
+                      )
+                    }}
+                  />
+                </S.InputMoneyCart>
+
+                <S.InputCount>
+                  <span
+                    onClick={() =>
+                      handleUnitChange(item.id, editedData[item.id]?.unit - 1)
+                    }
+                  >
+                    -
+                  </span>
+                  <input
+                    type="number"
+                    value={editedData[item.id]?.unit || 0}
+                    placeholder="0"
+                    onChange={(e) =>
+                      handleDataChange(
+                        item.id,
+                        editedData[item.id]?.price || 0,
+                        parseInt(e.target.value)
+                      )
+                    }
+                    required
+                  />
+                  <span
+                    onClick={() =>
+                      handleUnitChange(item.id, editedData[item.id]?.unit + 1)
+                    }
+                  >
+                    +
+                  </span>
+                </S.InputCount>
               </S.InputLabel>
+
               <S.Opcao>
                 <img
                   src="https://img.icons8.com/48/metro/ok.png"

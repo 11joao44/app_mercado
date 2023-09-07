@@ -21,9 +21,13 @@ export const Title = styled.div`
 
 export const AbasStyle = styled.div`
   cursor: pointer;
+  position: relative;
   gap: 8px;
 
   span {
+    position: absolute;
+    top: 15px;
+    right: -14px;
     display: block;
     color: #fff;
   }
