@@ -26,7 +26,7 @@ const Header = () => {
 
       <AbasStyle onClick={openCartt}>
         <img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/ffffff/external-cart-traditional-marketing-flatart-icons-solid-flatarticons.png" />
-        <span>{addedToCart.length - 20}</span>
+        <span>{addedToCart.length}</span>
       </AbasStyle>
     </HeaderStyle>
   )
