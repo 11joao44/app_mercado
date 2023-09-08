@@ -5,7 +5,7 @@ export const AddPriceStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 79.2vh;
+  height: 81.4vh;
 `
 export const CampoStyle = styled.div`
   border: 1px solid #000;
@@ -37,7 +37,7 @@ export const CampoStyle = styled.div`
 export const Capa = styled.img`
   width: 100%;
   height: 264px;
-  border-radius: 8px;
+  object-fit: cover;
 `
 
 export const Opcao = styled.div`
@@ -55,11 +55,7 @@ export const Titulo = styled.h2`
   width: 100%;
 `
 
-export const InputLabel = styled.div`
-  input {
-    padding: 8px;
-  }
-`
+export const InputLabel = styled.div``
 
 export const ButtonDiv = styled.div`
   flex-direction: column;
@@ -132,7 +128,6 @@ export const InputLabelAdd = styled.div`
 export const InputMoney = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
   border: 2px solid #000;
   border-radius: 8px;
@@ -141,8 +136,12 @@ export const InputMoney = styled.div`
     0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 4px 5px 0 rgba(0, 0, 0, 0.12);
 
+  div {
+    margin: 0 auto;
+  }
+
   input {
-    width: 75px;
+    width: 80px;
     text-align: start;
     outline: none;
     border: none;
@@ -156,7 +155,7 @@ export const InputMoney = styled.div`
 export const InputCount = styled.div`
   display: flex;
   align-items: center;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 8px;
   width: 100%;
 
@@ -186,17 +185,16 @@ export const InputMoneyCart = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 16px;
   background-color: transparent;
   border: 1px solid #000;
   border-radius: 8px;
-  box-shadow:
-    0 4px 4px -2px rgba(0, 0, 0, 0.2),
-    0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 4px 5px 0 rgba(0, 0, 0, 0.12);
 
   input {
-    width: 80px;
+    width: 70px;
     text-align: start;
+    padding: 12px 4px;
+    background-color: transparent;
     outline: none;
     border: none;
     font-size: 16px;

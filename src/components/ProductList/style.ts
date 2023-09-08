@@ -16,24 +16,28 @@ export const Modal = styled.div`
   }
 `
 
-export const Overlay = styled.div`
+export const Back = styled.img`
+  top: 12px;
+  left: 16px;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: 0.8;
-  z-index: -1;
+  width: 40px;
+  cursor: pointer;
+`
+export const Clean = styled.img`
+  top: 12px;
+  right: 20px;
+  position: absolute;
+  width: 44px;
+  cursor: pointer;
 `
 
 export const ListStyle = styled.div`
   background-color: ${color.corFundo};
   box-shadow: 0 0 16px 8px #000000;
   overflow-y: auto;
-  height: 95vh;
-  margin: 64px 0;
-  padding: 24px 16px;
+  width: 100%;
+  height: 100vh;
+  padding: 40px 8px;
   border-radius: 8px;
 
   &::-webkit-scrollbar {
@@ -49,7 +53,7 @@ export const ListStyle = styled.div`
   }
 
   input {
-    width: 50%;
+    width: 60%;
     display: flex;
     margin: 0 auto;
     padding: 8px 16px;

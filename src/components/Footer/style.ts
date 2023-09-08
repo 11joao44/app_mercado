@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 
 export const FooterStyle = styled.header`
   background-color: rgba(0, 0, 0, 90%);
+
   width: 100%;
   padding: 24px 0;
   display: flex;

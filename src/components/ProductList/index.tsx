@@ -1,5 +1,5 @@
 import { useAPI } from '../../hooks/useAPI'
-import { ListStyle, Modal, Overlay } from './style'
+import { Back, Clean, ListStyle, Modal } from './style'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { closeList } from '../../store/reducers/lista'
@@ -33,8 +33,15 @@ const ProductList = () => {
 
   return (
     <Modal className={isOpenList ? 'is-open' : ''}>
-      <Overlay onClick={closeLista} />
       <ListStyle>
+        <Back
+          onClick={closeLista}
+          src="https://img.icons8.com/glyph-neue/left-squared.png"
+        />
+        <Clean
+          onClick={() => dispatch(alteraTexto(''))}
+          src="https://img.icons8.com/external-creatype-glyph-colourcreatype/external-close-essential-ui-v3-creatype-glyph-colourcreatype.png"
+        />
         <input
           type="text"
           placeholder="Pesquisar"

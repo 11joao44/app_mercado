@@ -145,14 +145,16 @@ const AddCart = () => {
                     required
                   />
                   <S.InputMoney>
-                    <span>R$:</span>
-                    <input
-                      type="text"
-                      value={formatPriceForDisplay(newProduct.preco)}
-                      onChange={handlePriceInputChange}
-                      placeholder="Preço do Produto"
-                      required
-                    />
+                    <div>
+                      <span>R$:</span>
+                      <input
+                        type="text"
+                        value={formatPriceForDisplay(newProduct.preco)}
+                        onChange={handlePriceInputChange}
+                        placeholder="Preço do Produto"
+                        required
+                      />
+                    </div>
                   </S.InputMoney>
                   <S.InputCount>
                     <span onClick={remover}>-</span>
