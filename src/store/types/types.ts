@@ -5,3 +5,10 @@ export type Product = {
   preco: number
   unidade: number
 }
+
+export type Historic = {
+  id: number
+  date: Date
+  products: Product[]
+  totalAmount: number
+}

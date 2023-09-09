@@ -1,9 +1,12 @@
+import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
+
 import * as S from './style'
+import { RootReducer } from '../../store'
 import { useAPI } from '../../hooks/useAPI'
+import * as C from '../../store/reducers/cart'
+import { Historic } from '../../store/types/types'
 import { closeCart } from '../../store/reducers/lista'
-import { removeFromCart, removeFromEditedData } from '../../store/reducers/cart'
 
 const Cart = () => {
   const items = useAPI()
@@ -12,17 +15,16 @@ const Cart = () => {
   const { isOpenCart } = useSelector((state: RootReducer) => state.lista)
 
   // Acessar o estado do componente AddCart
-  const { editedData } = useSelector((state: RootReducer) => state.cart)
-  const addedToCart = useSelector(
-    (state: RootReducer) => state.cart.addedToCart
+  const { editedData, addedToCart } = useSelector(
+    (state: RootReducer) => state.cart
   )
 
   // Filtrar apenas os produtos que foram adicionados ao carrinho
   const cartItems = items.filter((produto) => addedToCart.includes(produto.id))
 
   const removeCartItem = (productId: number) => {
-    dispatch(removeFromCart(productId))
-    dispatch(removeFromEditedData(productId))
+    dispatch(C.removeFromCart(productId))
+    dispatch(C.removeFromEditedData(productId))
   }
 
   const formataPreco = (preco = 0) => {
@@ -42,6 +44,33 @@ const Cart = () => {
   const closeCartt = () => {
     dispatch(closeCart())
   }
+
+  const registerPurchaseHistory = async () => {
+    try {
+      // Formatando os dados do histórico de compras
+      const historicData: Historic = {
+        id: 0,
+        date: new Date(),
+        products: cartItems,
+        totalAmount: total
+      }
+
+      // Fazendo uma chamada POST para a API do seu backend
+      const response = await axios.post(
+        'https://api-mercado.vercel.app/api/historico',
+        historicData
+      )
+
+      console.log('Histórico de compras registrado com sucesso:', response.data)
+
+      dispatch(C.removeAllFromCart()) // Você precisará criar essa action `removeAllFromCart`
+      alert(`O total da sua compra foi de ${formataPreco(total)}`)
+      // Lógica adicional, como limpar o carrinho após o registro
+    } catch (error) {
+      console.error('Erro ao registrar o histórico de compras:', error)
+    }
+  }
+
   return (
     <>
       <S.Modal className={isOpenCart ? 'is-open' : ''}>
@@ -74,6 +103,7 @@ const Cart = () => {
             </S.Produto>
           ))}
           <S.Total id="total">Total da Compra: {formataPreco(total)}</S.Total>
+          <button onClick={registerPurchaseHistory}>Finalizar Compra</button>
         </S.CartStyle>
       </S.Modal>
     </>
