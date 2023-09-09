@@ -71,11 +71,14 @@ export const ButtonDiv = styled.div`
 `
 export const Form = styled.div`
   flex-direction: column;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  margin: 48px auto;
   gap: 16px;
+
+  &.is-open {
+    display: flex;
+  }
 
   button {
     background-color: #fff;
@@ -87,7 +90,6 @@ export const Form = styled.div`
     font-size: 0.875rem;
     padding: 8px 16px;
     color: #000;
-    margin: 32px auto;
     box-shadow:
       0 4px 4px -2px rgba(0, 0, 0, 0.2),
       0 2px 2px 0 rgba(0, 0, 0, 0.14),
@@ -107,6 +109,7 @@ export const InputLabelAdd = styled.div`
   align-items: center;
   justify-content: center;
   gap: 16px;
+  margin-bottom: 24px;
 
   input {
     width: 100%;
@@ -202,5 +205,11 @@ export const InputMoneyCart = styled.div`
 
   span {
     margin-left: 15px;
+  }
+`
+
+export const DivButton = styled.div`
+  &.is-open {
+    display: none;
   }
 `

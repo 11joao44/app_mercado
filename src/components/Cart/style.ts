@@ -98,3 +98,12 @@ export const Lixeira = styled.img`
   height: 24px;
   cursor: pointer;
 `
+
+export const FinalizarCompra = styled.button`
+  padding: 6px 8px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  width: 80%;
+  margin: 0 10%;
+`

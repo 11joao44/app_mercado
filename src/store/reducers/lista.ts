@@ -4,6 +4,7 @@ import { Product } from '../types/types'
 type ListState = {
   isOpenList: boolean
   isOpenCart: boolean
+  isOpenAdd: boolean
   produtos: Product[]
   editedPrices: { [productId: number]: number }
   editedUnits: { [productId: number]: number }
@@ -12,6 +13,7 @@ type ListState = {
 const initialState: ListState = {
   isOpenList: false,
   isOpenCart: false,
+  isOpenAdd: false,
   produtos: [],
   editedPrices: {},
   editedUnits: {}
@@ -88,6 +90,12 @@ const listSlice = createSlice({
     },
     closeCart: (state) => {
       state.isOpenCart = false
+    },
+    openAdd: (state) => {
+      state.isOpenAdd = true
+    },
+    closeAdd: (state) => {
+      state.isOpenAdd = false
     }
   }
 })
@@ -98,6 +106,8 @@ export const {
   openCart,
   closeCart,
   openList,
+  openAdd,
+  closeAdd,
   closeList,
   updatePrices,
   updateUnits,

@@ -7,11 +7,19 @@ import Button from '../Button'
 import { RootReducer } from '../../store'
 import * as C from '../../store/reducers/cart'
 import { Product } from '../../store/types/types'
-import { removeItem, openList, openCart } from '../../store/reducers/lista' // Corrija a importação para 'reducers' em vez de 'redurcers'
+import {
+  removeItem,
+  openList,
+  openCart,
+  openAdd,
+  closeAdd
+} from '../../store/reducers/lista' // Corrija a importação para 'reducers' em vez de 'redurcers'
 
 const AddCart = () => {
   const { editedData } = useSelector((state: RootReducer) => state.cart)
-  const { produtos } = useSelector((state: RootReducer) => state.lista)
+  const { produtos, isOpenAdd } = useSelector(
+    (state: RootReducer) => state.lista
+  )
   const dispatch = useDispatch()
 
   const [newProduct, setNewProduct] = useState<Product>({
@@ -76,6 +84,13 @@ const AddCart = () => {
     dispatch(openCart())
   }
 
+  const openAddPro = () => {
+    dispatch(openAdd())
+  }
+  const closeAddPro = () => {
+    dispatch(closeAdd())
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -131,7 +146,7 @@ const AddCart = () => {
       <S.CampoStyle>
         {produtos.length === 0 ? (
           <S.ButtonDiv>
-            <S.Form>
+            <S.Form className={isOpenAdd ? 'is-open' : ''}>
               <h2>Adicionar Novo Produto</h2>
               <form onSubmit={handleSubmit}>
                 <S.InputLabelAdd>
@@ -174,10 +189,14 @@ const AddCart = () => {
                   </S.InputCount>
                 </S.InputLabelAdd>
                 <button type="submit">Adicionar Produto</button>
+                <button onClick={closeAddPro}>Cancelar</button>
               </form>
             </S.Form>
-            <Button onClick={openLista} texto="Lista de compras" />
-            <Button onClick={openCartt} texto="Carrinho de compras" />
+            <S.DivButton className={isOpenAdd ? 'is-open' : ''}>
+              <Button onClick={openAddPro} texto="Novo produto" />
+              <Button onClick={openLista} texto="Lista de compras" />
+              <Button onClick={openCartt} texto="Carrinho de compras" />
+            </S.DivButton>
           </S.ButtonDiv>
         ) : null}
         <ul>
