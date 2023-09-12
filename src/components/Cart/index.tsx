@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-
 import * as S from './style'
 import { RootReducer } from '../../store'
 import { useAPI } from '../../hooks/useAPI'
@@ -21,6 +20,7 @@ const Cart = () => {
 
   // Filtrar apenas os produtos que foram adicionados ao carrinho
   const cartItems = items.filter((produto) => addedToCart.includes(produto.id))
+  console.log(cartItems)
 
   const removeCartItem = (productId: number) => {
     dispatch(C.removeFromCart(productId))
@@ -79,7 +79,7 @@ const Cart = () => {
           <S.Header>
             <img
               onClick={closeCartt}
-              src="https://img.icons8.com/glyph-neue/left-squared.png"
+              src="https://img.icons8.com/glyph-neue/right-squared.png"
             />
             <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/external-market-foodies-flaticons-lineal-color-flat-icons-4.png" />
             <a href="#total">

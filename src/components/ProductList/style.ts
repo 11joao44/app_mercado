@@ -5,29 +5,45 @@ import { color } from '../../styles'
 export const Modal = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  display: none;
+  display: flex;
   z-index: 5;
+  transition: all ease-in-out 0.5s;
 
   &.is-open {
-    display: flex;
+    left: 0;
+  }
+
+  @media screen and (max-width: 2560px) {
+    left: -2552px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    left: -1552px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    left: -920px;
+  }
+
+  @media screen and (max-width: 767px) {
+    left: -424px;
   }
 `
 
 export const Back = styled.img`
   top: 12px;
-  left: 16px;
+  right: 16px;
   position: absolute;
   width: 40px;
   cursor: pointer;
 `
 export const Clean = styled.img`
-  top: 12px;
-  right: 20px;
+  top: 16px;
+  left: 24px;
   position: absolute;
-  width: 44px;
+  width: 32px;
   cursor: pointer;
 `
 
@@ -37,8 +53,23 @@ export const ListStyle = styled.div`
   overflow-y: auto;
   width: 100%;
   height: 100vh;
-  padding: 40px 8px;
   border-radius: 8px;
+
+  @media screen and (max-width: 2560px) {
+    padding: 40px 240px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    padding: 40px 120px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    padding: 40px 96px;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 40px 16px;
+  }
 
   &::-webkit-scrollbar {
     background-color: #1d1d1d;

@@ -4,14 +4,31 @@ import { color } from '../../styles'
 export const Modal = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  right: -400px;
   width: 100%;
   height: 100%;
-  display: none;
+  display: flex;
   z-index: 5;
+  transition: all ease-in-out 0.3s;
 
   &.is-open {
-    display: flex;
+    right: 0;
+  }
+
+  @media screen and (max-width: 2560px) {
+    right: -2552px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    right: -1552px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    right: -920px;
+  }
+
+  @media screen and (max-width: 767px) {
+    right: -424px;
   }
 `
 

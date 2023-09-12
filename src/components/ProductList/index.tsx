@@ -34,13 +34,13 @@ const ProductList = () => {
   return (
     <Modal className={isOpenList ? 'is-open' : ''}>
       <ListStyle>
+        <Clean
+          onClick={() => dispatch(alteraTexto(''))}
+          src="https://img.icons8.com/ios-filled/broom-with-a-lot-of-dust.png"
+        />
         <Back
           onClick={closeLista}
           src="https://img.icons8.com/glyph-neue/left-squared.png"
-        />
-        <Clean
-          onClick={() => dispatch(alteraTexto(''))}
-          src="https://img.icons8.com/external-creatype-glyph-colourcreatype/external-close-essential-ui-v3-creatype-glyph-colourcreatype.png"
         />
         <input
           type="text"

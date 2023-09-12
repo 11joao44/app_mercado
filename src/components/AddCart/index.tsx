@@ -80,6 +80,7 @@ const AddCart = () => {
   const openLista = () => {
     dispatch(openList())
   }
+
   const openCartt = () => {
     dispatch(openCart())
   }
@@ -87,6 +88,7 @@ const AddCart = () => {
   const openAddPro = () => {
     dispatch(openAdd())
   }
+
   const closeAddPro = () => {
     dispatch(closeAdd())
   }

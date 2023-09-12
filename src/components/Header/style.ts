@@ -26,14 +26,14 @@ export const AbasStyle = styled.div`
 
   span {
     position: absolute;
-    top: 15px;
-    right: -14px;
+    top: 8px;
+    right: -16px;
     display: block;
     color: #fff;
   }
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
   }
 `

@@ -6,6 +6,14 @@ export const AddPriceStyle = styled.div`
   align-items: center;
   justify-content: center;
   height: 81.4vh;
+
+  @media screen and (max-width: 1024px) {
+    height: 85.45vh;
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 82.4vh;
+  }
 `
 export const CampoStyle = styled.div`
   border: 1px solid #000;
