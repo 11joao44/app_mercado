@@ -243,7 +243,6 @@ const AddCart = () => {
                   <input
                     type="number"
                     value={editedData[item.id]?.unit || 0}
-                    placeholder="0"
                     onChange={(e) =>
                       handleDataChange(
                         item.id,

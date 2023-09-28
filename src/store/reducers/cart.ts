@@ -5,11 +5,13 @@ interface CartState {
     [productId: number]: { price: number; unit: number }
   }
   addedToCart: number[]
+  cartItems: string[]
 }
 
 const initialState: CartState = {
   editedData: {},
-  addedToCart: []
+  addedToCart: [],
+  cartItems: []
 }
 
 const cartSlice = createSlice({
@@ -30,10 +32,12 @@ const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload
       state.addedToCart.push(productId)
+      localStorage.setItem('cartItems', JSON.stringify(state.addedToCart))
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload
       state.addedToCart = state.addedToCart.filter((id) => id !== productId)
+      localStorage.setItem('cartItems', JSON.stringify(state.addedToCart))
     },
     removeAllFromCart: (state) => {
       state.addedToCart = []
